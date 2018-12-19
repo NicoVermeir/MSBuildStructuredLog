@@ -44,7 +44,6 @@
     <PackageReference Include="AvalonEdit">
       <Version>5.0.4</Version>
     </PackageReference>
-    <PackageReference Include="Nerdbank.GitVersioning" Version="2.3.38" PrivateAssets="all" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="Controls\BuildControl.xaml">
