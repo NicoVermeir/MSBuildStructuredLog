@@ -578,7 +578,12 @@ namespace StructuredLogViewer.Avalonia
 
         private void HelpLink_Click(object sender, RoutedEventArgs e)
         {
-            Process.Start("https://github.com/KirillOsenkov/MSBuildStructuredLog");
+            var psi = new ProcessStartInfo
+            {
+                FileName = "https://github.com/KirillOsenkov/MSBuildStructuredLog",
+                UseShellExecute = true
+            };
+            Process.Start(psi);
         }
 
         private void Exit_Click(object sender, RoutedEventArgs e)

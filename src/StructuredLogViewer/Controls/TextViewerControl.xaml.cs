@@ -128,7 +128,13 @@ namespace StructuredLogViewer.Controls
                 filePath = SettingsService.WriteContentToTempFileAndGetPath(Text, extension);
             }
 
-            Process.Start(filePath, null);
+            var psi = new ProcessStartInfo
+            {
+                FileName = filePath,
+                UseShellExecute = true
+            };
+
+            Process.Start(psi);
         }
 
         private void copyFullPath_Click(object sender, System.Windows.RoutedEventArgs e)
