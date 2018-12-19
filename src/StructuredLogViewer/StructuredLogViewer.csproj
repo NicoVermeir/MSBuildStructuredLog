@@ -1,119 +1,19 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+
   <PropertyGroup>
-    <SrcRoot>$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildProjectDirectory), Common.props))</SrcRoot>
-    <ProjectGuid>{FAEE07FD-7384-40D4-B52B-4756D1011BA6}</ProjectGuid>
-    <AssemblyName>StructuredLogViewer</AssemblyName>
-    <RootNamespace>StructuredLogViewer</RootNamespace>
-    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <OutputType>WinExe</OutputType>
-    <Prefer32Bit Condition="$(Prefer32Bit)==''">false</Prefer32Bit>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
+    <Product>MSBuild Structured Log Viewer</Product>
+    <AssemblyTitle>$(Product)</AssemblyTitle>
+    <UseWPF>true</UseWPF>
     <ApplicationIcon>StructuredLogger.ico</ApplicationIcon>
-    <NuspecFileName>MSBuildStructuredLogViewer</NuspecFileName>
-    <ChocolateyFileName>msbuild-structured-log-viewer</ChocolateyFileName>
   </PropertyGroup>
-  <Import Project="$(SrcRoot)\Common.props" />
+
   <ItemGroup>
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="PresentationCore" />
-    <Reference Include="PresentationFramework" />
-    <Reference Include="System" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.IO.Compression" />
-    <Reference Include="System.Xaml" />
-    <Reference Include="System.Xml" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="WindowsBase" />
+    <ProjectReference Include="..\StructuredLogViewer.Core\StructuredLogViewer.Core.csproj" />
+
+    <PackageReference Include="squirrel.windows" Version="1.4.0" />
+    <PackageReference Include="AvalonEdit" Version="5.0.4" />
   </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="squirrel.windows">
-      <Version>1.4.0</Version>
-    </PackageReference>
-    <ProjectReference Include="..\StructuredLogger\StructuredLogger.csproj">
-      <Project>{a939886e-a191-4a46-a84b-21ad670081b9}</Project>
-      <Name>StructuredLogger</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\StructuredLogViewer.Core\StructuredLogViewer.Core.csproj">
-      <Project>{3c655c5d-22c3-4b8d-969c-3fc497294703}</Project>
-      <Name>StructuredLogViewer.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\TaskRunner\TaskRunner.csproj">
-      <Project>{b8539a63-8d03-4d16-9945-fe7f8489b56d}</Project>
-      <Name>TaskRunner</Name>
-    </ProjectReference>
-    <PackageReference Include="AvalonEdit">
-      <Version>5.0.4</Version>
-    </PackageReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Page Include="Controls\BuildControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Controls\DocumentWell.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Controls\SearchAndResultsControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Controls\TextViewerControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Controls\TimelineControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="MainWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="themes\Generic.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="BuildParametersScreen.cs" />
-    <Compile Include="Controls\BuildControl.xaml.cs">
-      <DependentUpon>BuildControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\Classifier.cs" />
-    <Compile Include="Controls\DocumentWell.xaml.cs">
-      <DependentUpon>DocumentWell.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\SearchAndResultsControl.xaml.cs">
-      <DependentUpon>SearchAndResultsControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\SourceFileTab.cs" />
-    <Compile Include="Controls\SourceFileTabHeader.cs" />
-    <Compile Include="Controls\TextViewerControl.xaml.cs">
-      <DependentUpon>TextViewerControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\SplitterPanel.cs" />
-    <Compile Include="Controls\StringEmptinessToVisibilityConverter.cs" />
-    <Compile Include="Controls\TimelineControl.xaml.cs">
-      <DependentUpon>TimelineControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\TreeViewExtensions.cs" />
-    <Compile Include="Entrypoint.cs" />
-    <Compile Include="FileAssociations.cs" />
-    <Compile Include="MainWindow.xaml.cs">
-      <DependentUpon>MainWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="MSBuildLocator.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="StructuredLogger.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.config" />
-    <None Include="MSBuildStructuredLogViewer.nuspec">
-      <SubType>Designer</SubType>
-    </None>
-  </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <Import Project="$(SrcRoot)\Common.targets" />
+
 </Project>
