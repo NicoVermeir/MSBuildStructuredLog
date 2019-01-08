@@ -1,6 +1,6 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.27703.2047
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.28407.52
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StructuredLogViewer", "src\StructuredLogViewer\StructuredLogViewer.csproj", "{FAEE07FD-7384-40D4-B52B-4756D1011BA6}"
 EndProject
@@ -15,6 +15,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		Common.targets = Common.targets
 		nuget.config = nuget.config
 		README.md = README.md
+		steps.demosnippets = steps.demosnippets
 		version.json = version.json
 	EndProjectSection
 EndProject

@@ -1,0 +1,69 @@
+﻿
+# Comments
+
+TAB: MSBuildStructuredLog
+
+- Project File (csproj)
+
+<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
+    <Product>MSBuild Structured Log Viewer</Product>
+    <AssemblyTitle>$(Product)</AssemblyTitle>
+    <UseWPF>true</UseWPF>
+    <ApplicationIcon>StructuredLogger.ico</ApplicationIcon>
+
+    <!-- Use RuntimeIdentifiers so that the restore calculates things correctly
+         We'll pass RuntimeIdentifier=win-x86 in the reference from the Packaging Project 
+    -->
+    <RuntimeIdentifiers>win-x86</RuntimeIdentifiers>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\StructuredLogViewer.Core\StructuredLogViewer.Core.csproj" />
+
+    <PackageReference Include="squirrel.windows" Version="1.4.0" />
+    <PackageReference Include="AvalonEdit" Version="5.0.4" />
+  </ItemGroup>
+
+</Project>
+
+
+- Publish Targets
+
+  <Target Name="__GetPublishItems" DependsOnTargets="ComputeFilesToPublish" Returns="@(_PublishItem)">
+    <ItemGroup>
+      <_PublishItem Include="@(ResolvedFileToPublish->'%(FullPath)')" TargetPath="%(ResolvedFileToPublish.RelativePath)" OutputGroup="__GetPublishItems" />
+      <_PublishItem Include="$(ProjectDepsFilePath)" TargetPath="$(ProjectDepsFileName)" />
+      <_PublishItem Include="$(ProjectRuntimeConfigFilePath)" TargetPath="$(ProjectRuntimeConfigFileName)" />
+    </ItemGroup>
+  </Target>
+
+TAB: MSBuildStructuredLog - Package
+
+- DebuggerType
+
+<DebuggerType>CoreClr</DebuggerType>
+
+- ProjectReference
+
+    <ProjectReference Include="..\src\StructuredLogViewer\StructuredLogViewer.csproj" 
+                      SkipGetTargetFrameworkProperties="true" 
+                      Properties="RuntimeIdentifier=win-x86;SelfContained=true" />
+
+- PackageTargets
+
+  <PropertyGroup>
+    <PackageOutputGroups>@(PackageOutputGroups);__GetPublishItems</PackageOutputGroups>
+  </PropertyGroup>
+  <Target Name="_ValidateAppReferenceItems" />
+  <Target Name="_FixEntryPoint" AfterTargets="_ConvertItems">
+    <PropertyGroup>
+      <EntryPointExe>StructuredLogViewer\StructuredLogViewer.exe</EntryPointExe>
+    </PropertyGroup>
+  </Target>
+  <Target Name="PublishReferences" BeforeTargets="ExpandProjectReferences">
+    <MSBuild Projects="@(ProjectReference->'%(FullPath)')" BuildInParallel="$(BuildInParallel)" Targets="Publish" />
+  </Target>
